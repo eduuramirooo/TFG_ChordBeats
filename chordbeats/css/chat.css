@@ -1,0 +1,152 @@
+:root {
+  --green: #1DB954;
+  --pink-neon: #F45288;
+  --dark: #121212;
+  --light: #fff;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e1e1e;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--pink-neon);
+  border-radius: 10px;
+}
+body {
+  background-color: var(--dark);
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.chat-container {
+  background: var(--dark);
+  width: 350px;
+  height: 600px;
+  border-radius: 25px;
+  box-shadow: 0 0 15px var(--pink-neon);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 15px;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.chat-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--green);
+}
+
+.chat-title {
+  font-size: 1.3em;
+  font-weight: bold;
+  margin: 0;
+}
+
+.chat-box {
+  background-color: #1e1e1e;
+  flex: 1;
+  padding: 10px;
+  border-radius: 15px;
+  overflow-y: auto;
+  border: 1px solid var(--pink-neon);
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Mensaje base */
+.chat-message {
+  padding: 10px 14px;
+  border-radius: 20px;
+  max-width: 75%;
+  word-wrap: break-word;
+  font-size: 0.95em;
+}
+
+/* Mensajes propios */
+.chat-message-right {
+  align-self: flex-end;
+  background-color: #0f0f0f;
+  color: white;
+  border: 1px solid #333;
+}
+
+/* Mensajes de otros */
+.chat-message-left {
+  align-self: flex-start;
+  background-color: #2a2a2a;
+  color: white;
+  border: 1px solid #444;
+}
+
+.chat-form {
+  display: flex;
+  gap: 10px;
+}
+
+.chat-form input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  background-color: #1e1e1e;
+  color: white;
+  outline: none;
+}
+
+.chat-form button {
+  background-color: var(--green);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.chat-form button:hover {
+  background-color: #17a34a;
+}
+.volver-btn {
+  display: block;
+  width: fit-content;
+  margin: 20px auto;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  background-color: var(--green);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s, transform 0.2s ease;
+}
+
+.volver-btn:hover {
+  background-color: #1aa34a;
+  transform: scale(1.05);
+}

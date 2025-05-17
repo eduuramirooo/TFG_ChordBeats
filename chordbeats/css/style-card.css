@@ -33,6 +33,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   text-align: center;
+  margin-top: 100px;
 }
 
 .user {
@@ -98,7 +99,7 @@ body {
 
 .track-disc-full {
   position: absolute;
-  bottom: 65px;
+  bottom: 15px;
   right: 20px;
   display: flex;
   align-items: center;
@@ -241,4 +242,15 @@ body {
 .show-profiles-btn:hover {
   background-color: #1aa34a;
   transform: scale(1.05);
+}
+.chat-toggle-btn {
+  padding: 0.6rem 1.2rem;
+  background-color: var(--pink-neon);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
