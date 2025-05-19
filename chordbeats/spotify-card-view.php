@@ -1,31 +1,16 @@
-<!-- spotify-card-view.php -->
 <?php
-require_once 'conectar.php';
 
-// Datos de conexión
-$conexion = new Conectar('localhost', 'root', '', 'chordbeats');
-
-// Datos del usuario desde Spotify
-$nombreUsuario = $user['display_name'] ?? 'Usuario';
-$fotoPerfil = $user['images'][0]['url'] ?? 'https://via.placeholder.com/150';
-
-$_SESSION['nombre'] = $nombreUsuario;
-
-// Comprobar si ya existe el usuario
-$consultaCheck = "SELECT id FROM usuario WHERE username = ?";
-$usuarioExiste = $conexion->recibir_datos("SELECT id FROM usuario WHERE username = '$nombreUsuario'");
-
-if (count($usuarioExiste) === 0) {
-    // Insertar nombre y foto solo si no existe
-    $consultaInsert = "INSERT INTO usuario (username, foto_perfil) VALUES (?, ?)";
-    $conexion->hacer_consulta($consultaInsert, "ss", [$nombreUsuario, $fotoPerfil]);
-    $usuarioID = $conexion->ultimo_id();
-} else {
-    // Obtener el ID del usuario existente
-    $usuarioID = $usuarioExiste[0]['id'];
+if (!isset($_SESSION['id_usuario'])) {
+    die("Sesión no iniciada. Redirigiendo...");
+    exit;
 }
-$_SESSION['id_usuario'] = $usuarioID;
+
+$nombreUsuario = $_SESSION['nombre'] ?? 'Usuario';
+$fotoPerfil = $_SESSION['foto_perfil'] ?? 'https://via.placeholder.com/150';
+
+
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -35,20 +20,21 @@ $_SESSION['id_usuario'] = $usuarioID;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style-card.css">
 </head>
-<header>
-    <img src="/img/logo.png" alt="" width="150" >
-</header>
+
 <body>
+    <header>
+        <img src="/img/logo.png" alt="Logo" width="100">
+    </header>
 
     <!-- Tarjeta del usuario principal -->
     <div class="card">
         <div class="user">
-            <img src="<?= $user['images'][0]['url'] ?? 'https://via.placeholder.com/150' ?>" alt="User">
-            <div class="name"><?= $user['display_name'] ?? 'Usuario' ?></div>
+            <img src="<?= htmlspecialchars($fotoPerfil) ?>" alt="User">
+            <div class="name"><?= htmlspecialchars($nombreUsuario) ?></div>
         </div>
 
         <div class="details">
-            Edad:19 <br>
+            Edad: 19<br>
             Ciudad: Parla
         </div>
 
@@ -57,46 +43,44 @@ $_SESSION['id_usuario'] = $usuarioID;
         <div class="artists-column">
             <?php foreach ($topArtists as $artist): ?>
                 <div class="artist-item">
-                    <img src="<?= $artist['images'][0]['url'] ?? '' ?>" alt="Artista">
-                    <div class="artist-name"><?= $artist['name'] ?></div>
+                    <img src="<?= htmlspecialchars($artist['images'][0]['url'] ?? '') ?>" alt="Artista">
+                    <div class="artist-name"><?= htmlspecialchars($artist['name']) ?></div>
                 </div>
             <?php endforeach; ?>
         </div>
 
         <?php if (!empty($trackWithPreview)): ?>
             <div class="track-disc-full">
-                <!-- Botón para abrir chat -->
-                <button class="chat-toggle-btn" onclick="window.location.href='chat.php'"><img src="/img/chat.svg" alt=""></button>
+                <button class="chat-toggle-btn" onclick="window.location.href='chat.php'">
+                    <img src="/img/chat.svg" alt="Chat">
+                </button>
                 <div class="track-meta">
-                    <?= $trackWithPreview['name'] ?? '' ?> - <?= $trackWithPreview['artists'][0]['name'] ?? '' ?>
+                    <?= htmlspecialchars($trackWithPreview['name'] ?? '') ?> - 
+                    <?= htmlspecialchars($trackWithPreview['artists'][0]['name'] ?? '') ?>
                 </div>
-                <img src="<?= $trackWithPreview['album']['images'][0]['url'] ?? '' ?>" alt="Portada" class="disc-img">
+                <img src="<?= htmlspecialchars($trackWithPreview['album']['images'][0]['url'] ?? '') ?>" alt="Portada" class="disc-img">
             </div>
         <?php endif; ?>
-        <button class="show-profiles-btn" onclick="mostrarPerfiles()">🎵 Ver personas afines</button>
+
+        <a href="perfiles.php" class="show-profiles-btn">🎵 Ver personas afines</a>
     </div>
+
     <button class="show-profiles-btn" onclick="window.location.href='logout.php'">🚪 Cerrar sesión</button>
 
     <!-- Contenedor para las tarjetas swipe tipo Tinder -->
-
+    <div id="fake-profiles" style="display:none"></div>
 
     <script>
         localStorage.setItem('spotify_token', '<?= htmlspecialchars($token) ?>');
-
-        function mostrarPerfiles() {
-            const card = document.querySelector('.card');
-            const fakeProfiles = document.getElementById('fake-profiles');
-
-            // Aplicar fade out a la tarjeta
-            card.classList.add('fade-out');
-
-            // Mostrar el contenedor de perfiles falsos con visibilidad
-            setTimeout(() => {
-                card.style.display = 'none';
-                fakeProfiles.classList.add('active');
-            }, 400);
-        }
+         document.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".card, .swipe-card");
+    cards.forEach(card => {
+      card.style.opacity = "1";
+      card.style.animation = "slideFadeIn 0.7s ease";
+    });
+  });
     </script>
-</body>
 
+
+</body>
 </html>

@@ -1,49 +1,52 @@
 <?php
-require 'conectar.php';
-$conexion = new Conectar("localhost", "root", "", "chordbeats");
+session_start();
+require_once 'conectar.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['mensaje'])) {
-    $mensaje = trim($_POST['mensaje']);
-    $consulta = "INSERT INTO mensajes (mensaje, id_usuario) VALUES (?, 1)";
-    $conexion->hacer_consulta($consulta, "s", [$mensaje]);
+if (!isset($_SESSION['id_usuario']) || !isset($_GET['id'])) {
+    header("Location: index.php");
+    exit();
 }
+
+$bbdd = new Conectar("localhost", "root", "", "chordbeats");
+
+$id_usuario = $_SESSION['id_usuario'];
+$id_chat = intval($_GET['id']); // Seguridad básica
+
+// Envío de mensaje
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['mensaje'])) {
+    $mensaje = $_POST['mensaje'];
+    $fecha = date("Y-m-d H:i:s");
+
+    $consulta = "INSERT INTO mensajes (id_chats, id_usuario, mensaje, fecha) VALUES (?, ?, ?, ?)";
+    $bbdd->hacer_consulta($consulta, "iiss", [$id_chat, $id_usuario, $mensaje, $fecha]);
+}
+
+// Obtener mensajes de este chat
+$consulta = "SELECT id_usuario, mensaje, fecha, usuario.username as username, usuario.foto_perfil as foto_perfil FROM mensajes JOIN usuario ON usuario.id = mensajes.id_usuario WHERE id_chats = $id_chat ORDER BY fecha ASC";
+$mensajes = $bbdd->recibir_datos($consulta);
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
+<link rel="stylesheet" href="/css/chat.css">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Chat - ChordBeats</title>
-    <link rel="stylesheet" href="/css/chat.css">
-</head>
-
-<body>
-    <div class="chat-container">
-        <div class="chat-header">
-            <a href="spotify-card.php">
-                <img src="img/logo.png" alt="Logo" class="chat-logo">
-            </a>
-            <h1 class="chat-title">ChordBeats Chat</h1>
-        </div>
-
-        <div class="chat-box" id="chatBox">
-            <?php
-            $mensajes = $conexion->recibir_datos("SELECT mensaje, id_usuario FROM mensajes ORDER BY id ASC");
-            foreach ($mensajes as $msg) {
-                $clase = ($msg['id_usuario'] == 1) ? 'chat-message-right' : 'chat-message-left';
-                echo "<div class='chat-message $clase'>" . htmlspecialchars($msg['mensaje']) . "</div>";
-            }
-            ?>
-        </div>
-
-        <form method="POST" class="chat-form">
-            <input type="text" name="mensaje" placeholder="Escribe tu mensaje..." required>
-            <button type="submit">Enviar</button>
-        </form>
-        <a href="listado_chats.php" class="volver-btn">Volver al inicio</a>
+<div class="chat-container">
+    <div class="chat-header">
+        <a href="spotify-card.php">
+            <img src="/img/logo.png" alt="Logo" class="chat-logo">
+        </a>
+        <h1 class="chat-title">prueba</h1>
+    </div>
+    <div class="chat-box">
+        <?php foreach ($mensajes as $msg): ?>
+            <div class="chat-message 
+                <?= $msg['id_usuario'] == $id_usuario ? 'chat-message-right' : 'chat-message-left' ?>">
+                <?= htmlspecialchars($msg['mensaje']) ?>
+            </div>
+        <?php endforeach; ?>
     </div>
 
-</body>
-
-</html>
+    <!-- Formulario de envío -->
+    <form class="chat-form" method="POST">
+        <input type="text" name="mensaje" placeholder="Escribe un mensaje..." required>
+        <button type="submit">Enviar</button>
+    </form>
+</div>

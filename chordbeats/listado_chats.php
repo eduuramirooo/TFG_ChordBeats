@@ -10,7 +10,7 @@ $id_usuario = $_SESSION['id_usuario'];
 // Consulta para obtener los chats en los que el usuario está involucrado
 $consulta = "
 SELECT 
-    chats.id AS id_chat,
+    chats.id AS id_chats,
     u.id AS usuario_id,
     u.username as nombre,
     u.foto_perfil
@@ -25,20 +25,25 @@ $chats = $bbdd->recibir_datos($consulta);
 
 <!-- Estilos -->
 <link rel="stylesheet" href="/css/chat.css">
+<link rel="stylesheet" href="/css/listado_chats.css">
 
 <!-- Contenedor -->
 <div class="chat-container">
-    <h2 class="chat-title">Tus conversaciones</h2>
+    <h2 class="chat-title">Mis conversaciones</h2>
     <div class="chat-box">
         <?php if (!empty($chats)): ?>
             <?php foreach ($chats as $chat): ?>
-                <div class="chat-header">
+                <a href="chat.php?id=<?= $chat['id_chats'] ?>" class="chat-header chat-preview">
                     <img class="chat-logo" src="<?= htmlspecialchars($chat['foto_perfil']) ?>" alt="Foto de perfil">
                     <p class="chat-title"><?= htmlspecialchars($chat['nombre']) ?></p>
-                </div>
+                </a>
             <?php endforeach; ?>
         <?php else: ?>
-            <p>No tienes conversaciones aún.</p>
+            <p class="chat-title">No tienes conversaciones aún.</p>
         <?php endif; ?>
     </div>
+
+    <!-- Botón volver -->
+    <a href="index.php" class="volver-btn">Volver al inicio</a>
+</div>
 </div>

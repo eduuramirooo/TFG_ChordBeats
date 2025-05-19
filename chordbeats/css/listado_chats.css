@@ -1,0 +1,59 @@
+:root {
+  --green: #1FC13B;
+  --pink-neon: #F45288;
+  --dark: #121212;
+}
+
+/* Colorea todas las letras en verde */
+body, .chat-title, .chat-header, .chat-box, .chat-message {
+  color: var(--green);
+  text-decoration: none;
+}
+.chat-title {
+  padding: 10px;
+  text-align: center;
+}
+
+/* Estilo individual para cada conversación */
+.chat-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 15px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+/* Hover rosa neón */
+.chat-preview:hover {
+  background-color: var(--pink-neon);
+  color: var(--dark); /* Texto oscuro para contraste */
+}
+
+.chat-title {
+  color: var(--green); /* Por si se sobreescribe desde otro archivo */
+}
+.volver-btn {
+  display: block;
+  width: fit-content;
+  margin: 20px auto 0;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  background-color: var(--green);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s, transform 0.2s ease;
+}
+
+.volver-btn:hover {
+  background-color: #1aa34a;
+  transform: scale(1.05);
+}
