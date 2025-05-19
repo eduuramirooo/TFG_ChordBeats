@@ -35,7 +35,9 @@ $_SESSION['id_usuario'] = $usuarioID;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style-card.css">
 </head>
-
+<header>
+    <img src="/img/logo.png" alt="" width="150" >
+</header>
 <body>
 
     <!-- Tarjeta del usuario principal -->
@@ -46,8 +48,8 @@ $_SESSION['id_usuario'] = $usuarioID;
         </div>
 
         <div class="details">
-            Edad: <br>
-            Ciudad:
+            Edad:19 <br>
+            Ciudad: Parla
         </div>
 
         <div class="title-section">Artistas más escuchados</div>
@@ -64,7 +66,7 @@ $_SESSION['id_usuario'] = $usuarioID;
         <?php if (!empty($trackWithPreview)): ?>
             <div class="track-disc-full">
                 <!-- Botón para abrir chat -->
-                <button class="chat-toggle-btn" onclick="window.location.href='chat.php'">💬 Chat</button>
+                <button class="chat-toggle-btn" onclick="window.location.href='chat.php'"><img src="/img/chat.svg" alt=""></button>
                 <div class="track-meta">
                     <?= $trackWithPreview['name'] ?? '' ?> - <?= $trackWithPreview['artists'][0]['name'] ?? '' ?>
                 </div>
@@ -77,7 +79,6 @@ $_SESSION['id_usuario'] = $usuarioID;
 
     <!-- Contenedor para las tarjetas swipe tipo Tinder -->
 
-    <?php include 'spotify-fake-view.php'; ?>
 
     <script>
         localStorage.setItem('spotify_token', '<?= htmlspecialchars($token) ?>');
