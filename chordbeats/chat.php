@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['mensaje'])) {
             <input type="text" name="mensaje" placeholder="Escribe tu mensaje..." required>
             <button type="submit">Enviar</button>
         </form>
-        <a href="spotify-card.php" class="volver-btn">Volver al inicio</a>
+        <a href="listado_chats.php" class="volver-btn">Volver al inicio</a>
     </div>
 
 </body>

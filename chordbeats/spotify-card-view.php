@@ -19,7 +19,12 @@ if (count($usuarioExiste) === 0) {
     // Insertar nombre y foto solo si no existe
     $consultaInsert = "INSERT INTO usuario (username, foto_perfil) VALUES (?, ?)";
     $conexion->hacer_consulta($consultaInsert, "ss", [$nombreUsuario, $fotoPerfil]);
+    $usuarioID = $conexion->ultimo_id();
+} else {
+    // Obtener el ID del usuario existente
+    $usuarioID = $usuarioExiste[0]['id'];
 }
+$_SESSION['id_usuario'] = $usuarioID;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -91,7 +96,6 @@ if (count($usuarioExiste) === 0) {
             }, 400);
         }
     </script>
-
 </body>
 
 </html>
