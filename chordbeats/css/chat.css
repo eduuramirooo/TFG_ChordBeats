@@ -1,5 +1,5 @@
 :root {
-  --green: #1DB954;
+  --green: #A1EA25;
   --pink-neon: #F45288;
   --dark: #121212;
   --light: #fff;
@@ -109,6 +109,7 @@ body {
   padding: 10px;
   border-radius: 20px;
   border: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #1e1e1e;
   color: white;
   outline: none;
