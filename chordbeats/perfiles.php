@@ -26,6 +26,7 @@ WHERE au.usuario_id = ?
 $afines = $conexion->hacer_consulta_resultado($consulta, "i", [$usuarioId]);
 
 
+
 // Obtener artistas de cada usuario afín
 $tarjetas = [];
 

@@ -1,5 +1,4 @@
 <?php
-
 if (!isset($_SESSION['id_usuario'])) {
     die("Sesión no iniciada. Redirigiendo...");
     exit;
@@ -51,9 +50,9 @@ $fotoPerfil = $_SESSION['foto_perfil'] ?? 'https://via.placeholder.com/150';
 
         <?php if (!empty($trackWithPreview)): ?>
             <div class="track-disc-full">
-                <button class="chat-toggle-btn" onclick="window.location.href='chat.php'">
+                <a class="chat-toggle-btn" href="listado_chats.php">
                     <img src="/img/chat.svg" alt="Chat">
-                </button>
+                </a>
                 <div class="track-meta">
                     <?= htmlspecialchars($trackWithPreview['name'] ?? '') ?> - 
                     <?= htmlspecialchars($trackWithPreview['artists'][0]['name'] ?? '') ?>
@@ -67,7 +66,7 @@ $fotoPerfil = $_SESSION['foto_perfil'] ?? 'https://via.placeholder.com/150';
 
     <button class="show-profiles-btn" onclick="window.location.href='logout.php'">🚪 Cerrar sesión</button>
 
-    <!-- Contenedor para las tarjetas swipe tipo Tinder -->
+    <!-- Contenedor para las tarjetas swipe -->
     <div id="fake-profiles" style="display:none"></div>
 
     <script>

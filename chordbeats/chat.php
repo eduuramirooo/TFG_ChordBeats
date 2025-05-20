@@ -24,17 +24,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['mensaje'])) {
 // Obtener mensajes de este chat
 $consulta = "SELECT id_usuario, mensaje, fecha, usuario.username as username, usuario.foto_perfil as foto_perfil FROM mensajes JOIN usuario ON usuario.id = mensajes.id_usuario WHERE id_chats = $id_chat ORDER BY fecha ASC";
 $mensajes = $bbdd->recibir_datos($consulta);
+$consulta2 = "
+SELECT 
+    chats.id AS id_chats,
+    u.id AS usuario_id,
+    u.username as nombre,
+    u.foto_perfil
+FROM chats
+JOIN usuario u 
+    ON (u.id = chats.id_usuario1 AND chats.id_usuario2 = $id_usuario)
+    OR (u.id = chats.id_usuario2 AND chats.id_usuario1 = $id_usuario)
+WHERE chats.id = $id_chat
+;";
+$mensajes2 = $bbdd->recibir_datos($consulta2);
 ?>
 
 <link rel="stylesheet" href="/css/chat.css">
 
 <div class="chat-container">
-    <div class="chat-header">
-        <a href="spotify-card.php">
-            <img src="/img/logo.png" alt="Logo" class="chat-logo">
+    <div class="chat-header" <?php foreach ($mensajes2 as $msg2): ?>>
+            <a href="spotify-card.php">
+                <img src="<?= htmlspecialchars($msg2['foto_perfil']) ?>" alt="Logo" class="chat-logo">
+            </a>
+            <h1 class="chat-title"><?= htmlspecialchars($msg2['nombre']) ?></h1>
+        </div>
+        <a href="listado_chats.php" class="back-button" title="Volver a chats">
+            <img src="/img/atras.png" width="30px" alt="Volver">
         </a>
-        <h1 class="chat-title">prueba</h1>
-    </div>
+    <?php endforeach; ?>
     <div class="chat-box">
         <?php foreach ($mensajes as $msg): ?>
             <div class="chat-message 

@@ -44,6 +44,6 @@ $chats = $bbdd->recibir_datos($consulta);
     </div>
 
     <!-- Botón volver -->
-    <a href="index.php" class="volver-btn">Volver al inicio</a>
+    <a href="spotify-card.php" class="volver-btn">Volver al inicio</a>
 </div>
 </div>
