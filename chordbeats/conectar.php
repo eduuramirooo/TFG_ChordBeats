@@ -10,18 +10,30 @@ class Conectar
     /* function hacer_consulta($tipo_consulta, $tabla, $valores, $opciones){
         $consulta = "$tipo_consulta $tabla $valores $opciones"; 
     }   */
-    function hacer_consulta($consulta, $tipos, $variables){
-        $sentencia = $this->conexion->prepare($consulta);
-        $array_completo = array_merge([$tipos],$variables);
-        $referencia = [];
-        foreach($array_completo as $clave => $valor){
-            $referencia[$clave] = &$array_completo[$clave];
-        }
-        call_user_func_array([$sentencia, 'bind_param'],$referencia);
-        //$sentencia->bind_param($tipos, $variables);
-        $sentencia->execute();
-        return $this->conexion->insert_id;
+function hacer_consulta($consulta, $tipos, $variables) {
+    $sentencia = $this->conexion->prepare($consulta);
+    if (!$sentencia) {
+        die("❌ Error al preparar: " . $this->conexion->error);
     }
+
+    $array_completo = array_merge([$tipos], $variables);
+    $referencia = [];
+
+    foreach ($array_completo as $clave => $valor) {
+        $referencia[$clave] = &$array_completo[$clave];
+    }
+
+    call_user_func_array([$sentencia, 'bind_param'], $referencia);
+
+    if (!$sentencia->execute()) {
+        die("❌ Error al ejecutar: " . $sentencia->error);
+    }
+
+    $sentencia->close();
+
+    return $this->conexion->insert_id;
+}
+
     public function hacer_consulta_resultado($consulta, $tipos, $variables) {
     $stmt = $this->conexion->prepare($consulta);
     if (!$stmt) {

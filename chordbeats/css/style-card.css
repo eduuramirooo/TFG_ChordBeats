@@ -42,11 +42,16 @@ body {
 }
 
 .user img {
+  transition: all 0.3s ease;
   width: 90px;
   height: 90px;
   border-radius: 50%;
   border: 3px solid var(--green);
   object-fit: cover;
+}
+.user img:hover {
+  transform: rotate(1.05);
+  box-shadow: 0 0 10px var(--green);
 }
 
 .user .name {

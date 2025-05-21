@@ -5,6 +5,7 @@
     <title>Mis estadísticas</title>
     <link rel="stylesheet" href="/css/style-card.css">
     <style>
+        
         body {
             background-color: #121212;
             color: white;
@@ -45,14 +46,11 @@
             background-color: #1ed760;
         }
 
-     .estadisticas-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* ⬅ 5 columnas fijas */
-    gap: 25px;
-    opacity: 1;
-    transition: opacity 0.4s ease;
-}
-
+        .estadisticas-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 25px;
+        }
 
         .estadisticas-item {
             background-color: #1e1e1e;
@@ -60,12 +58,8 @@
             padding: 10px;
             color: white;
             text-align: center;
-            transition: 0.2s ease;
-        }
-
-        .estadisticas-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 10px #1DB954;
+            transform: scale(0.9);
+            opacity: 0; /* Inicialmente oculto */
         }
 
         .estadisticas-item img {
@@ -86,35 +80,38 @@
 
         .oculto {
             display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
         }
 
         .activo {
             display: grid;
-            opacity: 1;
         }
-        /* Animación fade */
-.fade {
-    animation: fadeInOut 0.4s ease;
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            60% {
+                opacity: 1;
+                transform: scale(1.05) translateY(-5px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+.estadisticas-item:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px #F45288;
+    transition: all 0.3s ease;
 }
 
-@keyframes fadeInOut {
-    from {
-        opacity: 0;
-        transform: scale(0.98);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
 
     </style>
 </head>
 <body>
     <header>
-        <img src="/img/logo.png" alt="Logo" width="100">
+        <img src="/img/logo.png" alt="Logo" width="150">
     </header>
 
     <div class="estadisticas-container">
@@ -143,25 +140,47 @@
         </div>
     </div>
 
-    <a href="spotify-card.php" class="show-profiles-btn">⬅ Volver al perfil</a>
+<a href="spotify-card.php" class="show-profiles-btn" style="margin-bottom: 1%;">⬅ Volver al perfil</a>
+
 
     <script>
+        function aplicarAnimaciones(contenedor) {
+            const items = contenedor.querySelectorAll('.estadisticas-item');
+            items.forEach((item, index) => {
+                // Reinicia animación
+                item.style.animation = 'none';
+                item.style.opacity = '0';
+                item.offsetHeight; // Forzar reflujo
+                item.style.animation = `bounceIn 0.6s ease forwards`;
+                item.style.animationDelay = `${index * 50}ms`;
+            });
+        }
+
         function mostrar(tipo) {
             const artistas = document.getElementById('seccion-artistas');
             const canciones = document.getElementById('seccion-canciones');
 
             if (tipo === 'artistas') {
+                canciones.classList.add('oculto');
+                canciones.classList.remove('activo');
+
                 artistas.classList.remove('oculto');
                 artistas.classList.add('activo');
-                canciones.classList.remove('activo');
-                canciones.classList.add('oculto');
+                aplicarAnimaciones(artistas);
             } else {
+                artistas.classList.add('oculto');
+                artistas.classList.remove('activo');
+
                 canciones.classList.remove('oculto');
                 canciones.classList.add('activo');
-                artistas.classList.remove('activo');
-                artistas.classList.add('oculto');
+                aplicarAnimaciones(canciones);
             }
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const artistas = document.getElementById('seccion-artistas');
+            aplicarAnimaciones(artistas);
+        });
     </script>
 </body>
 </html>

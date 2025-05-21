@@ -22,13 +22,13 @@ $fotoPerfil = $_SESSION['foto_perfil'] ?? 'https://via.placeholder.com/150';
 
 <body>
     <header>
-        <img src="/img/logo.png" alt="Logo" width="100">
+        <img src="/img/logo.png" alt="Logo" width="150">
     </header>
 
     <!-- Tarjeta del usuario principal -->
     <div class="card">
         <div class="user">
-            <img src="<?= htmlspecialchars($fotoPerfil) ?>" alt="User">
+           <a href="/estadisticas.php"> <img src="<?= htmlspecialchars($fotoPerfil) ?>" alt="User"></a>
             <div class="name"><?= htmlspecialchars($nombreUsuario) ?></div>
         </div>
 
@@ -61,10 +61,10 @@ $fotoPerfil = $_SESSION['foto_perfil'] ?? 'https://via.placeholder.com/150';
             </div>
         <?php endif; ?>
 
-        <a href="perfiles.php" class="show-profiles-btn">🎵 Ver personas afines</a>
+        <a href="perfiles.php" class="show-profiles-btn">Personas con tu ritmo</a>
     </div>
 
-    <button class="show-profiles-btn" onclick="window.location.href='logout.php'">🚪 Cerrar sesión</button>
+    <button class="show-profiles-btn" onclick="window.location.href='logout.php'">Cerrar sesión</button>
 
     <!-- Contenedor para las tarjetas swipe -->
     <div id="fake-profiles" style="display:none"></div>

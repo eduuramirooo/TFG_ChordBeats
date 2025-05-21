@@ -56,7 +56,7 @@ foreach ($afines as $afin) {
 </head>
 <body>
     <header>
-        <img src="/img/logo.png" alt="Logo" width="100">
+        <img src="/img/logo.png" alt="Logo" width="150">
     </header>
 
     <div class="swipe-container" id="swipe-container">
@@ -99,7 +99,7 @@ foreach ($afines as $afin) {
         <?php endif; ?>
     </div>
 
-    <a href="spotify-card.php" class="show-profiles-btn">⬅ Volver</a>
+    <a href="spotify-card.php" class="show-profiles-btn">⬅ Volver a tu perfil</a>
 
     <script>
         function skipCard(button) {
@@ -122,7 +122,7 @@ foreach ($afines as $afin) {
         }
 
         function irChat(userId) {
-            window.location.href = 'chat.php?user=' + userId;
+            window.location.href = 'chat.php?id=' + userId;
         }
     </script>
 </body>

@@ -111,7 +111,7 @@
 
     .hero-image-stack img:nth-child(2) {
       right: 200px;
-      top: 0;
+      top: 60px;
       width: 400px;
       z-index: 2;
     }

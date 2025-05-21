@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-05-2025 a las 23:40:55
+-- Tiempo de generación: 21-05-2025 a las 13:15:20
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -76,17 +76,23 @@ INSERT INTO `artista_usuario` (`id`, `usuario_id`, `artista_id`) VALUES
 (8, 5, 2),
 (9, 5, 3),
 (10, 6, 1),
+(22, 6, 2),
 (11, 6, 4),
 (13, 7, 1),
 (12, 7, 2),
+(28, 7, 5),
 (14, 8, 3),
 (15, 8, 4),
+(29, 8, 6),
 (17, 9, 2),
 (16, 9, 5),
+(30, 9, 7),
 (18, 10, 3),
 (19, 10, 6),
+(31, 10, 8),
 (21, 11, 5),
-(20, 11, 6);
+(20, 11, 6),
+(32, 11, 9);
 
 -- --------------------------------------------------------
 
@@ -100,6 +106,13 @@ CREATE TABLE `chats` (
   `id_usuario2` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `chats`
+--
+
+INSERT INTO `chats` (`id`, `id_usuario1`, `id_usuario2`) VALUES
+(4, 5, 6);
+
 -- --------------------------------------------------------
 
 --
@@ -108,38 +121,18 @@ CREATE TABLE `chats` (
 
 CREATE TABLE `mensajes` (
   `id` int(11) NOT NULL,
-  `mensaje` varchar(250) NOT NULL,
-  `id_usuario` int(5) NOT NULL
+  `id_chats` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `mensaje` text NOT NULL,
+  `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `mensajes`
 --
 
-INSERT INTO `mensajes` (`id`, `mensaje`, `id_usuario`) VALUES
-(1, 'semen', 1),
-(2, 'semen', 2),
-(3, 'semen', 1),
-(4, 'semen', 1),
-(5, 'semen', 2),
-(6, 'semen', 1),
-(7, 'semen', 1),
-(8, 'semen', 1),
-(9, 'prueba', 1),
-(10, 'sdddddddddddddddddddddddddddddddddddddddddddddddddddd', 1),
-(11, 'ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd', 2),
-(12, 'ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd', 1),
-(13, 'hola', 1),
-(14, 'hola', 1),
-(15, 'hola', 1),
-(16, 'hola', 1),
-(17, 'hola', 1),
-(18, 'hola', 1),
-(19, 'hola', 1),
-(20, 'hola', 1),
-(21, 'hola', 1),
-(22, 'asd', 1),
-(23, 'asd', 1);
+INSERT INTO `mensajes` (`id`, `id_chats`, `id_usuario`, `mensaje`, `fecha`) VALUES
+(1, 4, 5, 'ey enano', '2025-05-21 12:44:41');
 
 -- --------------------------------------------------------
 
@@ -167,9 +160,9 @@ INSERT INTO `usuario` (`id`, `spotify_id`, `username`, `foto_perfil`) VALUES
 (6, 'spotify_001', 'Marcos', 'https://i.pravatar.cc/150?img=1'),
 (7, 'spotify_002', 'Lucía', 'https://i.pravatar.cc/150?img=2'),
 (8, 'spotify_003', 'Alejandro', 'https://i.pravatar.cc/150?img=3'),
-(9, 'spotify_004', 'Sofía', 'https://i.pravatar.cc/150?img=4'),
-(10, 'spotify_005', 'Carlos', 'https://i.pravatar.cc/150?img=5'),
-(11, 'spotify_006', 'Laura', 'https://i.pravatar.cc/150?img=6');
+(9, 'spotify_004', 'Melisa', 'https://i.pravatar.cc/150?img=16'),
+(10, 'spotify_005', 'Carlos', 'https://i.pravatar.cc/150?img=11'),
+(11, 'spotify_006', 'Laura', 'https://i.pravatar.cc/150?img=9');
 
 --
 -- Índices para tablas volcadas
@@ -191,10 +184,20 @@ ALTER TABLE `artista_usuario`
   ADD KEY `artista_id` (`artista_id`);
 
 --
+-- Indices de la tabla `chats`
+--
+ALTER TABLE `chats`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_usuario1` (`id_usuario1`),
+  ADD KEY `id_usuario2` (`id_usuario2`);
+
+--
 -- Indices de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_chats` (`id_chats`),
+  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- Indices de la tabla `usuario`
@@ -216,13 +219,19 @@ ALTER TABLE `artistas`
 -- AUTO_INCREMENT de la tabla `artista_usuario`
 --
 ALTER TABLE `artista_usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT de la tabla `chats`
+--
+ALTER TABLE `chats`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -240,6 +249,20 @@ ALTER TABLE `usuario`
 ALTER TABLE `artista_usuario`
   ADD CONSTRAINT `artista_usuario_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `artista_usuario_ibfk_2` FOREIGN KEY (`artista_id`) REFERENCES `artistas` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `chats`
+--
+ALTER TABLE `chats`
+  ADD CONSTRAINT `chats_ibfk_1` FOREIGN KEY (`id_usuario1`) REFERENCES `usuario` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `chats_ibfk_2` FOREIGN KEY (`id_usuario2`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `mensajes`
+--
+ALTER TABLE `mensajes`
+  ADD CONSTRAINT `mensajes_ibfk_1` FOREIGN KEY (`id_chats`) REFERENCES `chats` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `mensajes_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
