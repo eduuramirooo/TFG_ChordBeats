@@ -7,7 +7,7 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 
-const redirect_uri = 'https://b958-2a0c-5a80-d20b-4600-f811-6d88-633c-bf7.ngrok-free.app/callback';
+const redirect_uri = 'https://9e6d-2a0c-5a80-d20b-4600-d094-718d-91c3-b5fd.ngrok-free.app/callback';
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 

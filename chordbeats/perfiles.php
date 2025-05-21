@@ -51,7 +51,7 @@ foreach ($afines as $afin) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Perfiles afines</title>
+    <title>ChordBeats</title>
     <link rel="stylesheet" href="/css/style-card2.css">
 </head>
 <body>
@@ -83,8 +83,8 @@ foreach ($afines as $afin) {
                         </div>
     
                         <div class="swipe-buttons">
-                            <button class="swipe-button like" onclick="irChat(<?= $perfil['id'] ?>)">💬 Chat</button>
-                            <button class="swipe-button skip" onclick="skipCard(this)">⏭️ Skip</button>
+                            <button class="swipe-button like" onclick="irChat(<?= $perfil['id'] ?>)"><img src="/img/chat.svg" alt=""\></button>
+                            <button class="swipe-button skip" onclick="skipCard(this)"><img src="/img/skip4.svg" alt="" width="35px"></button>
                         </div>
                     </div>
                 </div>    

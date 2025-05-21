@@ -93,14 +93,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['mensaje'])) {
                 <img src="<?= htmlspecialchars($usuario_destino[0]['foto_perfil']) ?>" alt="Logo" class="chat-logo">
             </a>
             <h1 class="chat-title"><?= htmlspecialchars($usuario_destino[0]['username']) ?></h1>
+                    <a href="listado_chats.php" class="back-button" title="Volver a chats">
+            <img src="/img/back.svg" width="30px" alt="Volver" class="icon-white">
+        </a>
         </div>
     <?php endif; ?>
 
-    <a href="listado_chats.php" class="back-button" title="Volver a chats">
-        <img src="/img/back.svg" width="30px" alt="Volver" class="icon-white">
-    </a>
-
+    
     <div class="chat-box">
+
         <?php if (empty($mensajes)): ?>
             <div class="chat-message info-message">
                 Aún no hay mensajes. ¡Empieza la conversación!

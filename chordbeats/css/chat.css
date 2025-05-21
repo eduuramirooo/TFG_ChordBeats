@@ -167,9 +167,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: absolute;
-  right: 790px;
-  top: 165px;
+  margin-left: 23%;
+  transition: all 0.3s ease;
+}
+.back-button:hover {
+  transform: scale(1.05);
 }
 /* Animación al cargar el chat */
 @keyframes fadeInUp {
