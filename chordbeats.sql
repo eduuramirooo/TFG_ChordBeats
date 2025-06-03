@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-05-2025 a las 21:57:08
+-- Tiempo de generación: 03-06-2025 a las 21:20:44
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -106,13 +106,6 @@ CREATE TABLE `chats` (
   `id_usuario2` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `chats`
---
-
-INSERT INTO `chats` (`id`, `id_usuario1`, `id_usuario2`) VALUES
-(10, 5, 7);
-
 -- --------------------------------------------------------
 
 --
@@ -126,15 +119,6 @@ CREATE TABLE `mensajes` (
   `mensaje` text NOT NULL,
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `mensajes`
---
-
-INSERT INTO `mensajes` (`id`, `id_chats`, `id_usuario`, `mensaje`, `fecha`) VALUES
-(9, 10, 5, 'Hey!!! Qué tal? He visto que te gusta Ariana Grande, me encanta.', '2025-05-21 21:41:15'),
-(10, 10, 7, 'Siiii la verdad que canta genial a mi tambien me encanta.', '2025-05-21 21:41:42'),
-(11, 10, 5, 'Tienes razón he visto que tú tambien eres de Parla, que curioso', '2025-05-21 21:42:06');
 
 -- --------------------------------------------------------
 
@@ -227,13 +211,13 @@ ALTER TABLE `artista_usuario`
 -- AUTO_INCREMENT de la tabla `chats`
 --
 ALTER TABLE `chats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
