@@ -19,5 +19,5 @@ if (isset($_GET['id'])) {
         echo "❌ Usuario no encontrado.";
     }
 } else {
-    echo "❌ ID de usuario no proporcionado. Usa algo como: login-fake.php?id=2";
+    echo "❌ ID de usuario no proporcionado.";
 }

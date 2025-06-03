@@ -74,7 +74,7 @@ foreach ($topArtists as $artista) {
 }
 
 // 7. Obtener top canciones
-$topTracks = spotifyRequest('https://api.spotify.com/v1/me/top/tracks?limit=10', $token)['items'] ?? [];
+$topTracks = spotifyRequest('https://api.spotify.com/v1/me/top/tracks?limit=10&time_range=short_term', $token)['items'] ?? [];
 $trackWithPreview = null;
 if (!empty($topTracks)) {
     $trackWithPreview = $topTracks[array_rand($topTracks)];

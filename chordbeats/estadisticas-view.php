@@ -5,7 +5,6 @@
     <title>Mis estadísticas</title>
     <link rel="stylesheet" href="/css/style-card.css">
     <style>
-        
         body {
             background-color: #121212;
             color: white;
@@ -59,13 +58,27 @@
             color: white;
             text-align: center;
             transform: scale(0.9);
-            opacity: 0; /* Inicialmente oculto */
+            opacity: 0;
+            transition: all 0.3s ease;
         }
 
         .estadisticas-item img {
             width: 100%;
             border-radius: 10px;
             margin-bottom: 8px;
+        }
+
+        .estadisticas-link {
+            display: block;
+        }
+
+        .estadisticas-link img {
+            transition: transform 0.3s ease;
+        }
+
+        .estadisticas-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px #F45288;
         }
 
         .nombre {
@@ -100,13 +113,6 @@
                 transform: scale(1) translateY(0);
             }
         }
-.estadisticas-item:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px #F45288;
-    transition: all 0.3s ease;
-}
-
-
     </style>
 </head>
 <body>
@@ -123,7 +129,9 @@
         <div id="seccion-artistas" class="estadisticas-grid activo">
             <?php foreach ($topArtists as $artist): ?>
                 <div class="estadisticas-item">
-                    <img src="<?= htmlspecialchars($artist['images'][0]['url'] ?? '') ?>" alt="Artista">
+                    <a href="<?= htmlspecialchars($artist['external_urls']['spotify']) ?>" target="_blank" class="estadisticas-link">
+                        <img src="<?= htmlspecialchars($artist['images'][0]['url'] ?? '') ?>" alt="Artista">
+                    </a>
                     <div class="nombre"><?= htmlspecialchars($artist['name']) ?></div>
                 </div>
             <?php endforeach; ?>
@@ -132,7 +140,9 @@
         <div id="seccion-canciones" class="estadisticas-grid oculto">
             <?php foreach ($topTracks as $track): ?>
                 <div class="estadisticas-item">
-                    <img src="<?= htmlspecialchars($track['album']['images'][0]['url'] ?? '') ?>" alt="Canción">
+                    <a href="<?= htmlspecialchars($track['external_urls']['spotify']) ?>" target="_blank" class="estadisticas-link">
+                        <img src="<?= htmlspecialchars($track['album']['images'][0]['url'] ?? '') ?>" alt="Canción">
+                    </a>
                     <div class="nombre"><?= htmlspecialchars($track['name']) ?></div>
                     <div class="subtexto"><?= htmlspecialchars($track['artists'][0]['name']) ?></div>
                 </div>
@@ -140,17 +150,15 @@
         </div>
     </div>
 
-<a href="spotify-card.php" class="show-profiles-btn" style="margin-bottom: 1%;">⬅ Volver al perfil</a>
-
+    <a href="spotify-card.php" class="show-profiles-btn" style="margin-bottom: 1%;">⬅ Volver al perfil</a>
 
     <script>
         function aplicarAnimaciones(contenedor) {
             const items = contenedor.querySelectorAll('.estadisticas-item');
             items.forEach((item, index) => {
-                // Reinicia animación
                 item.style.animation = 'none';
                 item.style.opacity = '0';
-                item.offsetHeight; // Forzar reflujo
+                item.offsetHeight;
                 item.style.animation = `bounceIn 0.6s ease forwards`;
                 item.style.animationDelay = `${index * 50}ms`;
             });
@@ -163,14 +171,12 @@
             if (tipo === 'artistas') {
                 canciones.classList.add('oculto');
                 canciones.classList.remove('activo');
-
                 artistas.classList.remove('oculto');
                 artistas.classList.add('activo');
                 aplicarAnimaciones(artistas);
             } else {
                 artistas.classList.add('oculto');
                 artistas.classList.remove('activo');
-
                 canciones.classList.remove('oculto');
                 canciones.classList.add('activo');
                 aplicarAnimaciones(canciones);
@@ -178,8 +184,7 @@
         }
 
         document.addEventListener("DOMContentLoaded", function () {
-            const artistas = document.getElementById('seccion-artistas');
-            aplicarAnimaciones(artistas);
+            aplicarAnimaciones(document.getElementById('seccion-artistas'));
         });
     </script>
 </body>

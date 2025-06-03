@@ -90,12 +90,15 @@ foreach ($afines as $afin) {
                 </div>    
             <?php endforeach; ?>
         <?php else: ?>
-            <div class="swipe-card">
-                <div class="user">
-                    <img src="https://via.placeholder.com/150" alt="Nada">
-                    <div class="name">No queda más gente por conocer</div>
-                </div>
-            </div>
+<div class="swipe-card end-card">   
+    <div class="no-more-content">
+        <!-- <img src="/img/no-more-users.png" alt="Sin más perfiles" class="no-more-img"> -->
+        <h2 class="no-more-title">¡Has visto todos los perfiles!</h2>
+        <p class="no-more-text">Vuelve más tarde o actualiza tus gustos para encontrar nuevas personas.</p>
+        <a href="spotify-card.php" class="no-more-btn">🔁 Volver a tu perfil</a>
+    </div>
+</div>
+
         <?php endif; ?>
     </div>
 
@@ -112,12 +115,13 @@ foreach ($afines as $afin) {
                 // Mostrar mensaje final si no queda nadie
                 const swipeContainer = document.getElementById('swipe-container');
                 swipeContainer.innerHTML = `
-                    <div class="swipe-card">
-                        <div class="user">
-                            <img src="https://via.placeholder.com/150" alt="Nada">
-                            <div class="name">No queda más gente por conocer</div>
-                        </div>
-                    </div>`;
+  <div class="swipe-card end-card">   
+    <div class="no-more-content">
+        <!-- <img src="/img/no-more-users.png" alt="Sin más perfiles" class="no-more-img"> -->
+        <h2 class="no-more-title">¡Has visto todos los perfiles!</h2>
+        <p class="no-more-text">Vuelve más tarde o actualiza tus gustos para encontrar nuevas personas.</p>
+    </div>
+</div>`;
             }
         }
 

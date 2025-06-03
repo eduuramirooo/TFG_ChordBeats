@@ -217,3 +217,54 @@ body {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   transition: background-color 0.3s, transform 0.2s ease;
 }
+.end-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    text-align: center;
+}
+
+.no-more-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.no-more-img {
+    width: 120px;
+    opacity: 0.8;
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+.no-more-title {
+    font-size: 1.5rem;
+        color: white;}
+
+.no-more-text {
+    color: white;
+    font-size: 1rem;
+    max-width: 300px;
+}
+
+.no-more-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #1db954;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.no-more-btn:hover {
+    background-color: #1aa34a;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
